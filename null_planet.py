@@ -39,7 +39,7 @@ class NullPlanet:
         user_input = input("Please enter your Warrior name:  ")
         if user_input == user_input:
             print(f'Great! {user_input} Lets get Rick-rollin!')
-        elif self.player_two == Human() and user_input == user_input:
+        elif user_input == user_input:
             self.player_name = Human()
             print(f'Great! {user_input} What is is the 2nd Player name?')
         else:
@@ -49,14 +49,12 @@ class NullPlanet:
         ## Game being played znd Round Winner ###
 
     def play_game(self, round_winner):
-        self.wins = 0
-        self.looses = 0
-        while self.player_one.wins < 2 and self.player_two.wins < 2 and self.player_one.looses > 1 and self.player_two.looses > 1 :
+        while self.player_one.wins < 2 and self.player_two.wins < 2:
             player_one_choice = self.player_one.throw_gesture()
             player_two_choice = self.player_two.throw_gesture()
             print(f'Player One Gesture: {player_one_choice}')
             print(f'Player Two Gesture: {player_two_choice}')
-            return self.play_game()
+            return self.play_game(round_winner=self.select_player)
         if self.player_one.wins == 1:
             print("You won that round")
             self.wins += 1
@@ -78,17 +76,17 @@ class NullPlanet:
 
             ## Round winner ##
     def round_winner(self):
-        self.wins = 0
-        self.looses = 0
+        self.wins = 1
+        self.looses = 1
 
     def game_winner(self):
-        pass
+        self.wins = 2
 
     def wins(self):
-        self.wins += 1
+        self.wins += 0
 
     def looses(self):
-        self.looses += 1
+        self.looses += 0
 
     def start_game(self):
         self.welcome_message()

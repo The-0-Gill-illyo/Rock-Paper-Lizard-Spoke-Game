@@ -12,7 +12,3 @@ play.play_game(round_winner=play.select_player)
 play.round_winner()
 
 play.game_winner()
-
-play.wins()
-
-play.looses()
