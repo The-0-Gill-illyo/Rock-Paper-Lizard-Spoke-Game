@@ -7,91 +7,140 @@ class NullPlanet:
     def __init__(self):
         self.name = ""
         self.player_one = Human()
-        self.player_two = None
+        self.player_two = Human()
+        self.player_ai = Ai()
 
         ## rules of the game ##
 
     def welcome_message(self):
 
-        input("Welcome, where the ultimate battle of Rock, Paper, Scissor, Lizard, Spock begins!")
+        input("Welcome unlucky victim, this is where the ultimate battle of Rock, Paper, Scissor, Lizard, Spock begins! (PRESS ENTER TO CONTINUE)")
 
-        input("Here are the rules, you are not affriad of Spock's viporizing you!")
+        input("Here are the rules, if you are not affriad of Spock viporizing you! (PRESS ENTER TO CONTINUE)" )
 
-        input("Rock crushes Scissors, Scissors cut paper, Paper covers Rock, Rock crushes")
+        input("Rock crushes Scissors, Scissors cut paper, Paper covers Rock, Rock crushes Lizard, (PRESS ENTER TO CONTINUE)")
 
-        input("Lizard, Lizard poisons Spock, Spock smashes Scissors, Scissors decapitates Lizard,")
+        input("Lizard poisons Spock, Spock smashes Scissors, Scissors decapitates Lizard, (PRESS ENTER TO CONTINUE)")
 
-        input("Lizard eats Paper, Paper disproves Spock, Spock vaporizes Rock")
+        input("Lizard eats Paper, Paper disproves Spock, Spock vaporizes Rock (PRESS ENTER TO CONTINUE)")
 
         ## Human vs Human, Human vs Ai ##
 
     def select_player(self):
-        user_input = input("Please choose your oponent: Press 1 for Single Player or 2 for Multiplayer!  ")
-        if user_input == "1":
+        user_input = input("Would you like to play Single Player mode against an AI? Yes or No?  ")
+        if user_input == "Yes":
             self.player_two = Ai()
-        elif user_input == "2":
-            self.player_two = Human()
+            self.player_one.enter_name()
+            print(f'Great! {user_input} Lets get Rick-rollin!')
+            return
+        elif user_input == "No":
+            input("Please enter your Warrior names: (PRESS ENTER TO CONTINUE) ")
+            self.player_one.enter_name()
+            self.player_two.enter_name()
+            print(f'Great! {self.player_one.name} and {self.player_two.name} Lets get Rick-rollin!')
+            return
         else:
-            print("Input invalid: Please Choose 1 or 2:  ")
+            print("You must choose or feel the rath of Spoke!  ")
             self.select_player()
 
-    def player_name(self):
-        user_input = input("Please enter your Warrior name:  ")
-        if user_input == user_input:
-            print(f'Great! {user_input} Lets get Rick-rollin!')
-        elif user_input == user_input:
-            self.player_name = Human()
-            print(f'Great! {user_input} What is is the 2nd Player name?')
-        else:
-            print("Invalid entry, stop mashing the keys! :P")
-            self.player_name()
 
-        ## Game being played znd Round Winner ###
+        ## Game being played and Round Winner ###
 
-    def play_game(self, round_winner):
+    def play_game(self):
         while self.player_one.wins < 2 and self.player_two.wins < 2:
-            player_one_choice = self.player_one.throw_gesture()
-            player_two_choice = self.player_two.throw_gesture()
+            player_one_choice = self.player_one.choose_gesture()
+            player_two_choice = self.player_two.choose_gesture()
             print(f'Player One Gesture: {player_one_choice}')
             print(f'Player Two Gesture: {player_two_choice}')
-            return self.play_game(round_winner=self.select_player)
-        if self.player_one.wins == 1:
-            print("You won that round")
-            self.wins += 1
-            return round_winner
-        elif self.player_two.looses == 1:
-            print("Oh no, you lost that round")
-            self.looses += 1
-            return round_winner
-        elif self.player_two.wins == 1:
-            print("Good Job, you won this round!")
-            self.wins += 1
-            return round_winner
-        elif self.player_two.looses == 1:
-            print("Ouch, I hate when that happens")
-            self.looses += 1
-            return round_winner(self.wins and self.looses)
-        print(round_winner)
-        
+            self.game_battle()
 
-            ## Round winner ##
-    def round_winner(self):
-        self.wins = 1
-        self.looses = 1
+            self.game_winner()    
+
+    def game_battle(self):
+          if self.player_one == self.player_two:
+            print("Socking! It's a tie!")
+            if self.player_one.chosen_gesture == 'rock':
+                if self.player_one.chosen_gesture == 'paper':
+                    print("Paper beats rock! Player 2 wins!")
+                    self.player_two.wins += 1
+            elif self.player_two.chosen_gesture == 'lizard':
+                print("Rock crushes lizard! Player 1 wins!")
+                self.player_one.wins += 1
+            elif self.player_two.chosen_gesture == 'spock':
+                print("Spock vaporizes rock! Player 2 wins!")
+                self.player_two.wins += 1
+            elif self.player_two.chosen_gesture == 'scissors':
+                print("Rock smashes scissors! Player 1 wins!")
+                self.player_one.wins += 1
+            if self.player_one.chosen_gesture == 'scissors':
+                if self.player_two.chosen_gesture == 'paper':
+                    print("Scissors cut paper! Player 1 wins!")
+                self.player_one.wins += 1
+            elif self.player_two.chosen_gesture == 'lizard':
+                print("Scissors decapitates lizard! Player 1 wins!")
+                self.player_one.wins += 1
+            elif self.player_two.chosen_gesture == 'spock':
+                print("Spock SNASH scissors! Player 2 wins!")
+                self.player_two.wins += 1
+            elif self.player_two.chosen_gesture == 'rock':
+                print("Rock SMASH scissors! Player 2 wins!")
+                self.player_two.wins += 1
+            if self.player_one.chosen_gesture == 'paper':
+                if self.player_two.chosen_gesture == 'scissors':
+                    print("Scissors cut paper! Player 2 wins!")
+                self.player_two.wins += 1
+            elif self.player_two.chosen_gesture == 'lizard':
+                print("Lizard eats paper! MMM Fiber! Player 2 wins!")
+                self.player_two.wins += 1
+            elif self.player_two.chosen_gesture == 'spock':
+                print("Paper disproves Spock! Take that nerd! Player 1 wins!")
+                self.player_one.wins += 1
+            elif self.player_two.chosen_gesture == 'rock':
+                print("Paper covers Rock! Player 1 wins!")
+                self.player_one.wins += 1
+            if self.player_one.chosen_gesture == 'lizard':
+                if self.player_two.chosen_gesture == 'scissors':
+                    print("Scissors decapitate lizard! Player 2 wins!")
+                self.player_two.wins += 1
+            elif self.player_two.chosen_gesture == 'paper':
+                print("Lizard eats paper! MMM Fiber! Player 1 wins!")
+                self.player_one.wins += 1
+            elif self.player_two.chosen_gesture == 'spock':
+                print("Lizard poisons Spock! Player 1 wins!")
+                self.player_one.wins += 1
+            elif self.player_two.chosen_gesture == 'rock':
+                print("Rock crushes lizard! Player 2 wins!")
+                self.player_two.wins += 1
+            if self.player_one.chosen_gesture == 'spock':
+                if self.player_two.chosen_gesture == 'scissors':
+                    print("Spock SNASH scissors! Player 1 wins!")
+                self.player_one.wins += 1
+            elif self.player_two.chosen_gesture == 'paper':
+                print("Paper disproves Spock! Take that nerd! Player 2 wins!")
+                self.player_two.wins += 1
+            elif self.player_two.chosen_gesture == 'lizard':
+                print("Lizard poisons Spock! Player 2 wins!")
+                self.player_two.wins += 1
+            elif self.player_two.chosen_gesture == 'rock':
+                print("Spock vaporizes Rock! Player 1 wins!")
+                self.player_one.wins += 1
 
     def game_winner(self):
-        self.wins = 2
-
-    def wins(self):
-        self.wins += 0
-
-    def looses(self):
-        self.looses += 0
+        if (self.player_one.wins == 2):
+            print(f'{self.player_one.name} wins the game!')
+        elif (self.player_two.wins == 2):
+            print(f'{self.player_two.name} wins the game!')
+        
 
     def start_game(self):
         self.welcome_message()
         self.select_player()
-        self.player_name()
-        self.play_game(round_winner=self.select_player)
-        self.round_winner()
+        self.play_game()
         self.game_winner()
+        
+
+
+    
+        
+
+   

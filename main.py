@@ -7,8 +7,6 @@ play = NullPlanet()
 
 play.start_game()
 
-play.play_game(round_winner=play.select_player)
-
-play.round_winner()
+play.game_battle()
 
 play.game_winner()
