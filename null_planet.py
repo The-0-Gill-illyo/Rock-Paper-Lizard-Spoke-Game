@@ -50,11 +50,9 @@ class NullPlanet:
         while self.player_one.wins < 2 and self.player_two.wins < 2:
             player_one_choice = self.player_one.choose_gesture()
             player_two_choice = self.player_two.choose_gesture()
-            print(f'Player One Gesture: {player_one_choice}')
-            print(f'Player Two Gesture: {player_two_choice}')
             self.game_battle()
 
-            self.game_winner()    
+        self.game_winner()    
 
     def game_battle(self):
           if self.player_one == self.player_two:
@@ -62,7 +60,7 @@ class NullPlanet:
             if self.player_one.chosen_gesture == 'rock':
                 if self.player_one.chosen_gesture == 'paper':
                     print("Paper beats rock! Player 2 wins!")
-                    self.player_two.wins += 1
+                self.player_two.wins += 1
             elif self.player_two.chosen_gesture == 'lizard':
                 print("Rock crushes lizard! Player 1 wins!")
                 self.player_one.wins += 1
